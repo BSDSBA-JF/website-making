@@ -1,0 +1,54 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Exchange</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            document.querySelector('form').onsubmit = function() {
+            fetch('https://pokeapi.co/api/v2/pokemon?limit=151')
+            .then(response => response.json())
+            .then(data => {
+                const pokemon_id = parseInt(document.querySelector('#pokemon_id').value) - 1
+                const pokemon = data.results[pokemon_id];
+                if (pokemon !== undefined) {
+                    const pokemon_name = pokemon.name;
+                    const pokemon_url = pokemon.url;
+
+                    fetch(pokemon_url)
+                        .then(response2 => response2.json())
+                        .then(data2 => {
+                            const imageURL = data2.sprites.other['official-artwork'].front_default;
+                            document.querySelector('#image').src = imageURL;
+                            document.querySelector('#image').alt = pokemon.name;
+                    });
+
+                    document.querySelector('#name').innerHTML = pokemon_name;
+
+                } else {
+                    document.querySelector('#name').innerHTML = 'Not a Kanto Pokemon';
+                    document.querySelector('#image').src = '';
+                    document.querySelector('#image').alt = '';
+                }
+            })
+            .catch(error => {
+                console.log('Error', error);
+            });
+
+                return false;
+            }
+        });
+    </script>
+</head>
+<body>
+    <form>
+        <input type="text" id="pokemon_id" placeholder="Pokémon">
+        <input type="submit" id="submit">
+    </form>
+    <div>
+        <h1 id="name"></h1>
+        <img src="" alt="" id="image">
+    </div>
+</body>
+</html>
