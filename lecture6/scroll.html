@@ -1,0 +1,25 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scroll</title>
+    <script>
+        window.onscroll = () => {
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+                document.querySelector('body').style.background = 'green';
+            } else {
+                document.querySelector('body').style.background = 'white';
+            }
+        }
+    </script>
+</head>
+<body>
+    <script>
+        for (let i = 1; i <= 100; i++) {
+            const h1 = document.createElement('h1');
+            h1.innerHTML = `${i}`;
+            document.body.appendChild(h1);
+        }
+    </script>
+</body>
+</html>
